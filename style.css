@@ -1,0 +1,25 @@
+body, html {
+    margin: 0;
+}
+#randomMichis {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.recargar:hover {
+    background: rgb(240, 196, 232) ;
+}
+
+.recargar {
+    color:black;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px; 
+    margin-top: 20px;
+}

@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Imagenes de gatos</title>
-    <style>
-        .recargar {
-            color:green;
-            padding: 14px 28px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background: rgb(216, 151, 204) ;
-        };
-    </style>
 </head>
 <body>
-    <h1>Imagenes de gatos</h1>
-    <img alt="Imagenes de gatos">
-  <button class="btn recargar">Recargar</button>
+    <h1 class="text" >Michis App</h1>
 
+    <span id="Error"></span>
+
+    <section id="randomMichis">
+      <h2>Gatitos aleatorios</h2>
+
+        <article>
+            <img  id="imagen1" width="150" alt = "Imagenes de gatos"> 
+            <button>Guardar michi en favoritos</button>
+        </article>
+
+        <article>
+            <img  id="imagen2" width="150" alt = "Imagenes de gatos"> 
+            <button>Guardar michi en favoritos</button>
+        </article>
+       
+        <button class="btn recargar">Nueva imagen</button>
+    </section>
+
+    <section id="favoritesMichis">
+        <h2>Michis favoritos</h2>
+        <article>
+            <img  id="imagen3" alt = "Imagenes de gatos"> 
+            <button>Sacar al michi de favoritos</button>
+        </article>
+    </section>
     <script src="main.js"></script>
 </body>
 </html>
