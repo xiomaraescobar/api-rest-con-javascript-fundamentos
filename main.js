@@ -1,3 +1,8 @@
+const api = axios.create({
+  baseURL: 'https://api.thecatapi.com/v1'
+});
+api.defaults.headers.common['X-API-KEY'] = 'live_y6ugbp5HOwshYFSac1hCZnsD2gbmPWZM7vIN2a316cBIHQt2YjP8twwH5bntTBO7';
+
 const API_URL_RANDOM = ' https://api.thecatapi.com/v1/images/search?limit=2';
 const API_URL_FAVOURITES = ' https://api.thecatapi.com/v1/favourites';
 const API_URL_FAVOURITES_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
@@ -66,24 +71,27 @@ async function loadFavouriteMichis() {
   }
 }
 
-async function saveFavouriteMichi(id) {
-  const response = await fetch(API_URL_FAVOURITES, {
-    method:'POST',
-    headers: {
-      'content-type': 'application/json',
-      'X-API-KEY': 'live_y6ugbp5HOwshYFSac1hCZnsD2gbmPWZM7vIN2a316cBIHQt2YjP8twwH5bntTBO7',
-    },
-    body: JSON.stringify({
-      image_id: id
-    }),
-  });
-  const data = await response.json();
+async function saveFavouriteMichi(id) {// aqui estamos usando el metodo axios
+const response = await api.post('/favourites', {
+  image_id: id,
+});
+
+  //const response = await fetch(API_URL_FAVOURITES, {
+   // method:'POST',
+   // headers: {
+   //   'content-type': 'application/json',
+    //  'X-API-KEY': 'live_y6ugbp5HOwshYFSac1hCZnsD2gbmPWZM7vIN2a316cBIHQt2YjP8twwH5bntTBO7',
+   // },
+    //body: JSON.stringify({
+      //image_id: id
+    //}),
+  //});
+  //const data = await response.json();
 
   console.log('save')
-  console.log(response)
   
-  if (response.status !== 200) {
-    spanError.innerHTML = "hubo un error al guardar en favoritos: " +  response.status + " " + data.message;
+  if (status !== 200) {
+    spanError.innerHTML = "hubo un error al guardar en favoritos: " +  status + " " ;
   } else {
     console.log('Michi guardado en favoritos')
     loadFavouriteMichis();
@@ -112,6 +120,24 @@ reloadButton.forEach(button => {
   button.addEventListener('click',  loadRandomMichis);
 })
 
+function previewImage() {
+  const fileInput = document.getElementById('file');
+  const previewImage = document.getElementById('previewImage');
+  const file = fileInput.files[0];
+
+  const reader = new FileReader();
+  reader.onloadend = function () {
+    previewImage.src = reader.result;
+    previewImage.style.display = 'block';
+  }
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    previewImage.src = '';
+    previewImage.style.display = 'none';
+  }
+}
+
 async function uploadMichiPhoto() {
   const form = document.getElementById('uploadingForm')
   const formData = new FormData(form);
@@ -138,7 +164,8 @@ async function uploadMichiPhoto() {
     saveFavouriteMichi(data.id) //agraga el michi cargado a favoritos.
   }
 }
-
+//asignacion de la funcion previewImage al evento 
+document.getElementById('file').addEventListener('change', previewImage);
 
 loadRandomMichis();
 loadFavouriteMichis();
